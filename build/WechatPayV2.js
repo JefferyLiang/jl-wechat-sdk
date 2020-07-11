@@ -116,6 +116,20 @@ class WechatPayV2SDK extends base_1.WechatPayBase {
             return result;
         });
     }
+    query(out_trade_no) {
+        return tslib_1.__awaiter(this, void 0, void 0, function* () {
+            const URL = "https://api.mch.weixin.qq.com/pay/orderquery", nonce_str = utils_1.randomStr(16);
+            let post_data = {
+                appid: this.APP_ID,
+                mch_id: this.MERCHANT_ID,
+                out_trade_no,
+                nonce_str
+            };
+            post_data.sign = this.sign(post_data);
+            let result = yield this.http(URL, "POST", this.jsonToXml(post_data));
+            return result;
+        });
+    }
 }
 exports.default = WechatPayV2SDK;
 //# sourceMappingURL=WechatPayV2.js.map

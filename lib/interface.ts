@@ -31,3 +31,14 @@ export interface CANCEL_ORDER_RESULT extends BASE_RESULT {
   nonce_str: string;
   sign: string;
 }
+
+export interface QUERY_ORDER_RESULT extends BASE_RESULT {
+  appid: string;
+  mch_id: string;
+  nonce_str: string;
+  sign: string;
+  out_trade_no: string;
+  attach: { [key: string]: any };
+  trade_state: string;
+  trade_state_desc: string;
+}

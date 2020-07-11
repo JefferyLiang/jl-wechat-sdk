@@ -36,6 +36,17 @@ interface WECHAT_BASE_OPTION {
   refund_cert_path?: string;
 }
 
+interface QUERY_ORDER_RESULT extends BASE_RESULT {
+  appid: string;
+  mch_id: string;
+  nonce_str: string;
+  sign: string;
+  out_trade_no: string;
+  attach: { [key: string]: any };
+  trade_state: string;
+  trade_state_desc: string;
+}
+
 declare class WechatPayV2 {
   constructor(
     app_id: string,
@@ -64,6 +75,8 @@ declare class WechatPayV2 {
     total_fee: number,
     option?: { refund_desc: string; refund_fee: number }
   ): Promise<any>;
+
+  public query(out_trade_no: string): Promise<QUERY_ORDER_RESULT>;
 }
 
 declare class WechatSdk {
@@ -82,4 +95,4 @@ declare class WechatSdk {
   );
 }
 
-export = WechatSdk;
+export default WechatSdk;

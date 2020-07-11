@@ -2,7 +2,8 @@ import { WechatPayBase } from "./base";
 import {
   WECHAT_BASE_OPTION,
   CREATE_ORDER_BASE_RESULT,
-  CANCEL_ORDER_RESULT
+  CANCEL_ORDER_RESULT,
+  QUERY_ORDER_RESULT
 } from "./interface";
 import { randomStr, MD5 } from "./utils";
 import * as request from "request";
@@ -153,6 +154,24 @@ export default class WechatPayV2SDK extends WechatPayBase {
         passphrase: this.MERCHANT_ID
       }
     });
+    return result;
+  }
+
+  public async query(out_trade_no: string) {
+    const URL = "https://api.mch.weixin.qq.com/pay/orderquery",
+      nonce_str = randomStr(16);
+    let post_data: { [propName: string]: any } = {
+      appid: this.APP_ID,
+      mch_id: this.MERCHANT_ID,
+      out_trade_no,
+      nonce_str
+    };
+    post_data.sign = this.sign(post_data);
+    let result = await this.http<QUERY_ORDER_RESULT>(
+      URL,
+      "POST",
+      this.jsonToXml(post_data)
+    );
     return result;
   }
 }
