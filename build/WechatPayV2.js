@@ -39,11 +39,11 @@ class WechatPayV2SDK extends base_1.WechatPayBase {
         });
     }
     sign(post_data) {
-        const KEYS = Object.keys(post_data);
+        const KEYS = Object.keys(post_data).sort();
         let signStr = KEYS.map(key => {
             return `${key}=${post_data[key]}`;
-        }).join("&") + `&key=${this.MERCHANT_SECRET}`;
-        return utils_1.MD5(signStr).toUpperCase();
+        }).join("&");
+        return utils_1.MD5(`${signStr}&key=${this.MERCHANT_SECRET}`).toUpperCase();
     }
     jsonToXml(post_data) {
         return js2xmlparser.parse("xml", post_data);

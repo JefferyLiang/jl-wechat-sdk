@@ -55,12 +55,11 @@ export default class WechatPayV2SDK extends WechatPayBase {
   }
 
   private sign(post_data: { [key: string]: any }) {
-    const KEYS = Object.keys(post_data);
-    let signStr =
-      KEYS.map(key => {
-        return `${key}=${post_data[key]}`;
-      }).join("&") + `&key=${this.MERCHANT_SECRET}`;
-    return MD5(signStr).toUpperCase();
+    const KEYS = Object.keys(post_data).sort();
+    let signStr = KEYS.map(key => {
+      return `${key}=${post_data[key]}`;
+    }).join("&");
+    return MD5(`${signStr}&key=${this.MERCHANT_SECRET}`).toUpperCase();
   }
 
   private jsonToXml(post_data: { [propName: string]: any }) {
