@@ -1,0 +1,31 @@
+{
+  "name": "wechat-pay-sdk",
+  "version": "1.0.0",
+  "description": "",
+  "main": "build/index.js",
+  "author": "JeffLiang",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "rm -rf ./build && npx typescript"
+  },
+  "license": "MIT",
+  "files": [
+    "build/",
+    "index.d.ts",
+    "lib"
+  ],
+  "dependencies": {
+    "@types/crypto-js": "^3.1.47",
+    "@types/node": "^14.0.22",
+    "@types/request": "^2.48.5",
+    "@types/xml2json": "^0.11.0",
+    "crpyto-js": "^0.0.1-security",
+    "js2xmlparser": "^4.0.1",
+    "request": "^2.88.2",
+    "xml2json": "^0.12.0"
+  },
+  "devDependencies": {
+    "tslib": "^2.0.0",
+    "typescript": "^3.9.6"
+  }
+}
