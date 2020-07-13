@@ -3,7 +3,8 @@ import {
   WECHAT_BASE_OPTION,
   CREATE_ORDER_BASE_RESULT,
   CANCEL_ORDER_RESULT,
-  QUERY_ORDER_RESULT
+  QUERY_ORDER_RESULT,
+  REFUND_ORDER_RESULT
 } from "./interface";
 import { randomStr, MD5 } from "./utils";
 import * as request from "request";
@@ -137,7 +138,7 @@ export default class WechatPayV2SDK extends WechatPayBase {
     out_refund_no: string,
     total_fee: number,
     option?: { refund_desc?: string; refund_fee?: number }
-  ): Promise<any> {
+  ): Promise<REFUND_ORDER_RESULT> {
     if (this._REFUND_CERT_PATH === null) {
       throw new Error("can not refund pay without wechat cert file.");
     }
@@ -164,12 +165,17 @@ export default class WechatPayV2SDK extends WechatPayBase {
     if (this.DEBUG) {
       this.LOGGER("[ WECHAT PAY V2 ]REFUND with post_data", post_data);
     }
-    let result = await this.http<any>(URL, "POST", this.jsonToXml(post_data), {
-      agentOptions: {
-        pfx: fs.readFileSync(this._REFUND_CERT_PATH!),
-        passphrase: this.MERCHANT_ID
+    let result = await this.http<REFUND_ORDER_RESULT>(
+      URL,
+      "POST",
+      this.jsonToXml(post_data),
+      {
+        agentOptions: {
+          pfx: fs.readFileSync(this._REFUND_CERT_PATH!),
+          passphrase: this.MERCHANT_ID
+        }
       }
-    });
+    );
     return result;
   }
 

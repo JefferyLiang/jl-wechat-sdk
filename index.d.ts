@@ -47,6 +47,24 @@ interface QUERY_ORDER_RESULT extends BASE_RESULT {
   trade_state_desc: string;
 }
 
+interface REFUND_ORDER_RESULT extends BASE_RESULT {
+  appid: string;
+  mch_id: string;
+  nonce_str: string;
+  sign: string;
+  transaction_id: string;
+  out_trade_no: string;
+  out_refund_no: string;
+  refund_id: string;
+  refund_channel: { [key: string]: any };
+  refund_fee: string;
+  coupon_refund_fee: string;
+  total_fee: string;
+  cash_fee: string;
+  coupon_refund_count: string;
+  cash_refund_fee: string;
+}
+
 declare class WechatPayV2 {
   constructor(
     app_id: string,
@@ -74,7 +92,7 @@ declare class WechatPayV2 {
     out_refund_no: string,
     total_fee: number,
     option?: { refund_desc?: string; refund_fee?: number }
-  ): Promise<any>;
+  ): Promise<REFUND_ORDER_RESULT>;
 
   public query(out_trade_no: string): Promise<QUERY_ORDER_RESULT>;
 

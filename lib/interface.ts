@@ -43,3 +43,21 @@ export interface QUERY_ORDER_RESULT extends BASE_RESULT {
   trade_state: string;
   trade_state_desc: string;
 }
+
+export interface REFUND_ORDER_RESULT extends BASE_RESULT {
+  appid: string;
+  mch_id: string;
+  nonce_str: string;
+  sign: string;
+  transaction_id: string;
+  out_trade_no: string;
+  out_refund_no: string;
+  refund_id: string;
+  refund_channel: { [key: string]: any };
+  refund_fee: string;
+  coupon_refund_fee: string;
+  total_fee: string;
+  cash_fee: string;
+  coupon_refund_count: string;
+  cash_refund_fee: string;
+}
