@@ -89,6 +89,7 @@ declare class WechatSdk {
     option: {
       debug?: boolean;
       refund_cert_path?: string;
+      logger?: Function;
     },
     merchant_id?: string,
     merchant_sercert?: string
