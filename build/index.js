@@ -12,7 +12,7 @@ class WechatSdk extends base_1.WechatBase {
         this._MERCHANT_SECERT = merchant_sercert || null;
         this._REFUND_CERT_PATH = option === null || option === void 0 ? void 0 : option.refund_cert_path;
         if (this.DEBUG) {
-            console.log(`[WECHAT SDK] init with id: ${this.APP_ID}, secret: ${this.APP_SECRET} now`);
+            this.LOGGER(`[WECHAT SDK] init with id: ${this.APP_ID}, secret: ${this.APP_SECRET} now`);
         }
     }
     get MiniprogramSdk() {

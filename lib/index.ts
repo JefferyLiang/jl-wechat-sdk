@@ -57,7 +57,7 @@ export default class WechatSdk extends WechatBase {
     this._MERCHANT_SECERT = merchant_sercert || null;
     this._REFUND_CERT_PATH = option?.refund_cert_path;
     if (this.DEBUG) {
-      console.log(
+      this.LOGGER(
         `[WECHAT SDK] init with id: ${this.APP_ID}, secret: ${this.APP_SECRET} now`
       );
     }

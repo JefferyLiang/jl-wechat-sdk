@@ -1,6 +1,7 @@
 export interface WECHAT_BASE_OPTION {
   debug?: boolean;
   refund_cert_path?: string;
+  logger?: Function;
 }
 
 export interface SESSION_AND_OPEN_ID_RESULT {

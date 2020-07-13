@@ -22,6 +22,12 @@ export default class WechatPayV2SDK extends WechatPayBase {
     option: WECHAT_BASE_OPTION
   ) {
     super(app_id, app_secert, merchant_id, merchant_secert, option);
+    if (this.DEBUG) {
+      this.LOGGER(
+        "[ WECHAT PAY V2 ] init with refund cert file path",
+        option.refund_cert_path
+      );
+    }
     this._REFUND_CERT_PATH = option.refund_cert_path || null;
   }
 
@@ -94,6 +100,9 @@ export default class WechatPayV2SDK extends WechatPayBase {
       post_data = Object.assign(post_data, option);
     }
     post_data.sign = this.sign(post_data);
+    if (this.DEBUG) {
+      this.LOGGER("[ WECHAT PAY V2 ] CREATE with post_data", post_data);
+    }
     let result = await this.http<CREATE_ORDER_BASE_RESULT>(
       URL,
       "POST",
@@ -112,6 +121,9 @@ export default class WechatPayV2SDK extends WechatPayBase {
       nonce_str
     };
     post_data.sign = this.sign(post_data);
+    if (this.DEBUG) {
+      this.LOGGER(`[ WECHAT PAY V2 ] CANCEL with post_data`, post_data);
+    }
     let result = await this.http<CANCEL_ORDER_RESULT>(
       URL,
       "POST",
@@ -126,11 +138,13 @@ export default class WechatPayV2SDK extends WechatPayBase {
     total_fee: number,
     option?: { refund_desc: string; refund_fee: number }
   ): Promise<any> {
-    if (
-      this._REFUND_CERT_PATH === null ||
-      fs.existsSync(this._REFUND_CERT_PATH)
-    ) {
-      throw new Error("can not find wechat pay refund cert file.");
+    if (this._REFUND_CERT_PATH === null) {
+      throw new Error("can not refund pay without wechat cert file.");
+    }
+    if (!fs.existsSync(this._REFUND_CERT_PATH)) {
+      throw new Error(
+        `Can not read refund cert file in path ${this._REFUND_CERT_PATH}`
+      );
     }
     const URL = "https://api.mch.weixin.qq.com/secapi/pay/refund",
       nonce_str = randomStr(16);
@@ -147,6 +161,9 @@ export default class WechatPayV2SDK extends WechatPayBase {
       post_data = Object.assign(post_data, option);
     }
     post_data.sign = this.sign(post_data);
+    if (this.DEBUG) {
+      this.LOGGER("[ WECHAT PAY V2 ]REFUND with post_data", post_data);
+    }
     let result = await this.http<any>(URL, "POST", this.jsonToXml(post_data), {
       agentOptions: {
         pfx: fs.readFileSync(this._REFUND_CERT_PATH!),
@@ -166,6 +183,9 @@ export default class WechatPayV2SDK extends WechatPayBase {
       nonce_str
     };
     post_data.sign = this.sign(post_data);
+    if (this.DEBUG) {
+      this.LOGGER("[ WECHAT PAY V2 ] QUERY with post_data", post_data);
+    }
     let result = await this.http<QUERY_ORDER_RESULT>(
       URL,
       "POST",

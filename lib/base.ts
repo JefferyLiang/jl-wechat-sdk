@@ -4,6 +4,7 @@ export class WechatBase {
   private _APP_ID: string;
   private _APP_SECRET: string;
   private _DEBUG: boolean;
+  private _LOGGER: Function = console.log;
 
   get APP_ID() {
     return this._APP_ID;
@@ -17,6 +18,10 @@ export class WechatBase {
     return this._DEBUG;
   }
 
+  get LOGGER() {
+    return this._LOGGER;
+  }
+
   constructor(
     app_id: string,
     app_secret: string,
@@ -25,6 +30,9 @@ export class WechatBase {
     this._APP_ID = app_id;
     this._APP_SECRET = app_secret;
     this._DEBUG = option.debug || false;
+    if (option.logger) {
+      this._LOGGER = option.logger;
+    }
   }
 }
 

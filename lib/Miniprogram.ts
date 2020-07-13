@@ -10,7 +10,7 @@ export class WechatMiniprogramSdk extends WechatBase {
   ) {
     super(app_id, app_secret, option);
     if (this.DEBUG) {
-      console.log(
+      this.LOGGER(
         `[Wechat Miniprogram SDK] init with id: ${this.APP_ID}, secret: ${this.APP_SECRET} now`
       );
     }
@@ -20,6 +20,12 @@ export class WechatMiniprogramSdk extends WechatBase {
     code: string
   ): Promise<SESSION_AND_OPEN_ID_RESULT> {
     const URL = `https://api.weixin.qq.com/sns/jscode2session?appid=${this.APP_ID}&secret=${this.APP_SECRET}&js_code=${code}&grant_type=authorization_code`;
+    if (this.DEBUG) {
+      this.LOGGER(
+        "[ WECHAT MINIPROGRAM ] get open id and session key by code",
+        code
+      );
+    }
     let result = await new Promise<SESSION_AND_OPEN_ID_RESULT>(
       (resolve, reject) => {
         request(
