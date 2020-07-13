@@ -10,10 +10,20 @@ const fs = require("fs");
 class WechatPayV2SDK extends base_1.WechatPayBase {
     constructor(app_id, app_secert, merchant_id, merchant_secert, option) {
         super(app_id, app_secert, merchant_id, merchant_secert, option);
+        this._WECHAT_PAY_ORDER_STATUS = {
+            SUCCESS: "SUCCESS",
+            REFUND: "REFUND",
+            NOTPAY: "NOTPAY",
+            CLOSED: "CLOSED",
+            USERPAYING: "USERPAYING"
+        };
         if (this.DEBUG) {
             this.LOGGER("[ WECHAT PAY V2 ] init with refund cert file path", option.refund_cert_path);
         }
         this._REFUND_CERT_PATH = option.refund_cert_path || null;
+    }
+    get WECHAT_PAY_ORDER_STATUS() {
+        return this._WECHAT_PAY_ORDER_STATUS;
     }
     http(url, method, body, option) {
         return tslib_1.__awaiter(this, void 0, void 0, function* () {

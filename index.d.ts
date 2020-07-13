@@ -65,6 +65,15 @@ interface REFUND_ORDER_RESULT extends BASE_RESULT {
   cash_refund_fee: string;
 }
 
+interface WECHAT_PAY_ORDER_STATUS {
+  SUCCESS: string;
+  REFUND: string;
+  NOTPAY: string;
+  CLOSED: string;
+  USERPAYING: string;
+  [propName: string]: string;
+}
+
 declare class WechatPayV2 {
   constructor(
     app_id: string,
@@ -73,6 +82,8 @@ declare class WechatPayV2 {
     merchant_secert: string,
     option: WECHAT_BASE_OPTION
   );
+
+  get WECHAT_PAY_ORDER_STATUS(): WECHAT_PAY_ORDER_STATUS;
 
   public create(
     device_info: string,

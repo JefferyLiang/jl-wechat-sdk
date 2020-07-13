@@ -61,3 +61,12 @@ export interface REFUND_ORDER_RESULT extends BASE_RESULT {
   coupon_refund_count: string;
   cash_refund_fee: string;
 }
+
+export interface WECHAT_PAY_ORDER_STATUS {
+  SUCCESS: string;
+  REFUND: string;
+  NOTPAY: string;
+  CLOSED: string;
+  USERPAYING: string;
+  [propName: string]: string;
+}

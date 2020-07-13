@@ -4,7 +4,8 @@ import {
   CREATE_ORDER_BASE_RESULT,
   CANCEL_ORDER_RESULT,
   QUERY_ORDER_RESULT,
-  REFUND_ORDER_RESULT
+  REFUND_ORDER_RESULT,
+  WECHAT_PAY_ORDER_STATUS
 } from "./interface";
 import { randomStr, MD5 } from "./utils";
 import * as request from "request";
@@ -14,6 +15,17 @@ import * as fs from "fs";
 
 export default class WechatPayV2SDK extends WechatPayBase {
   private _REFUND_CERT_PATH: string | null;
+  private _WECHAT_PAY_ORDER_STATUS: WECHAT_PAY_ORDER_STATUS = {
+    SUCCESS: "SUCCESS",
+    REFUND: "REFUND",
+    NOTPAY: "NOTPAY",
+    CLOSED: "CLOSED",
+    USERPAYING: "USERPAYING"
+  };
+
+  get WECHAT_PAY_ORDER_STATUS() {
+    return this._WECHAT_PAY_ORDER_STATUS;
+  }
 
   constructor(
     app_id: string,
