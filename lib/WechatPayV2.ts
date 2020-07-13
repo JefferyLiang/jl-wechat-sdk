@@ -136,7 +136,7 @@ export default class WechatPayV2SDK extends WechatPayBase {
     out_trade_no: string,
     out_refund_no: string,
     total_fee: number,
-    option?: { refund_desc: string; refund_fee: number }
+    option?: { refund_desc?: string; refund_fee?: number }
   ): Promise<any> {
     if (this._REFUND_CERT_PATH === null) {
       throw new Error("can not refund pay without wechat cert file.");
@@ -192,5 +192,16 @@ export default class WechatPayV2SDK extends WechatPayBase {
       this.jsonToXml(post_data)
     );
     return result;
+  }
+
+  public getMiniprogramSign(data: { [key: string]: any }): string {
+    let post_data = Object.assign(data, { appId: this.APP_ID });
+    if (this.DEBUG) {
+      this.LOGGER(
+        "[ WECHAT PAY V2 ] Get miniprogram pay sign with data",
+        post_data
+      );
+    }
+    return this.sign(post_data);
   }
 }

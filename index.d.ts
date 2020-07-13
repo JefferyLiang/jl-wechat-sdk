@@ -73,10 +73,12 @@ declare class WechatPayV2 {
     out_trade_no: string,
     out_refund_no: string,
     total_fee: number,
-    option?: { refund_desc: string; refund_fee: number }
+    option?: { refund_desc?: string; refund_fee?: number }
   ): Promise<any>;
 
   public query(out_trade_no: string): Promise<QUERY_ORDER_RESULT>;
+
+  public getMiniprogramSign(data: { [key: string]: any }): string;
 }
 
 declare class WechatSdk {

@@ -147,6 +147,13 @@ class WechatPayV2SDK extends base_1.WechatPayBase {
             return result;
         });
     }
+    getMiniprogramSign(data) {
+        let post_data = Object.assign(data, { appId: this.APP_ID });
+        if (this.DEBUG) {
+            this.LOGGER("[ WECHAT PAY V2 ] Get miniprogram pay sign with data", post_data);
+        }
+        return this.sign(post_data);
+    }
 }
 exports.default = WechatPayV2SDK;
 //# sourceMappingURL=WechatPayV2.js.map

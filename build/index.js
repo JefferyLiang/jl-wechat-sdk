@@ -18,7 +18,8 @@ class WechatSdk extends base_1.WechatBase {
     get MiniprogramSdk() {
         if (this._MiniprogramSdk === null) {
             this._MiniprogramSdk = new Miniprogram_1.WechatMiniprogramSdk(this.APP_ID, this.APP_SECRET, {
-                debug: this.DEBUG
+                debug: this.DEBUG,
+                logger: this.LOGGER
             });
         }
         return this._MiniprogramSdk;
@@ -30,6 +31,7 @@ class WechatSdk extends base_1.WechatBase {
             }
             this._WechatPayV2 = new WechatPayV2_1.default(this.APP_ID, this.APP_SECRET, this._MERCHANT_ID, this._MERCHANT_SECERT, {
                 debug: this.DEBUG,
+                logger: this.LOGGER,
                 refund_cert_path: this._REFUND_CERT_PATH
             });
         }

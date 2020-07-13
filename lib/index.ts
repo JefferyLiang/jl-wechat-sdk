@@ -17,7 +17,8 @@ export default class WechatSdk extends WechatBase {
         this.APP_ID,
         this.APP_SECRET,
         {
-          debug: this.DEBUG
+          debug: this.DEBUG,
+          logger: this.LOGGER
         }
       );
     }
@@ -38,6 +39,7 @@ export default class WechatSdk extends WechatBase {
         this._MERCHANT_SECERT,
         {
           debug: this.DEBUG,
+          logger: this.LOGGER,
           refund_cert_path: this._REFUND_CERT_PATH
         }
       );
