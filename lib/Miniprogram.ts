@@ -37,7 +37,7 @@ export class WechatMiniprogramSdk extends WechatBase {
             if (err) {
               reject(err);
             } else {
-              resolve(body);
+              resolve(JSON.parse(body));
             }
           }
         );

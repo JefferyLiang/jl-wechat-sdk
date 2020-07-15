@@ -26,7 +26,7 @@ class WechatMiniprogramSdk extends base_1.WechatBase {
                         reject(err);
                     }
                     else {
-                        resolve(body);
+                        resolve(JSON.parse(body));
                     }
                 });
             }).catch(err => {
